@@ -19,7 +19,9 @@ const connection = mysql.createConnection({
         if (err) throw err;
         runTracker();
     });
+//Need to use consoleTable to add the tables here
 
+    //First Question
 const runTracker = () => {
 inquirer 
     .prompt ([
@@ -27,22 +29,26 @@ inquirer
         type:"list",
         name: "addQuest",
         message: "Please select one of the following choices:",
-        choices:["departments", "roles", "employee", "exit"]
+        choices:[
+          "Add a Department, Role or Employee?",
+          "View a Department, Role or Employee", 
+          "Update a Department, Role or Employee?", 
+          "Exit"]
         }
 ])
 
 .then((answer) => {
     switch (answer.addQuest) {
-      case 'departments':
-        departmentTracker();
+      case 'Add a Department, Role or Employee?':
+        addTracker();
         break;
 
-      case 'roles':
-        rolesTracker();
+      case 'View a Department, Role or Employee':
+        viewTracker();
         break;
 
-      case 'employee"':
-        employeeTracker();
+      case 'Update a Department, Role or Employee?':
+        updateTracker();
         break;
 
       case 'exit':
@@ -55,15 +61,41 @@ inquirer
     }
   });
 };
-
-const departmentTracker= () => {
+//Options for Adding something
+const addTracker= () => {
+  console.log('')
     inquirer
       .prompt({
         name: 'deptName',
-        type: 'input',
-        message: 'What is the name of the Department?',
+        type: 'list',
+        message: 'What would you like to add?',
+        choices:["Department", "Role", "Employee", "Exit"]
       })
       .then((answer) => {
+        switch (answer.addQuest) {
+          case 'Department':
+            addDepartment();
+            break;
+            
+          case 'Role"':
+            addRole();
+            break;
+    
+          case 'Employee"':
+            addEmployee();
+            break;
+    
+          case 'Exit':
+            connection.end();
+            break;
+    
+          default:
+            console.log(`Invalid action: ${answer.addQuest}`);
+            break;
+        }
+
+
+
         const query = 'SELECT name FROM department WHERE ?';
         connection.query(query, { name: answer.deptName }, (err, res) => {
           if (err) throw err;
@@ -77,6 +109,21 @@ const departmentTracker= () => {
       });
   };
 
+
+  // const addDepartment = () => {
+  // console.log('Adding new Department...\n');
+  // const query = connection.query(
+  //   'INSERT INTO department SET ?',
+  //   {
+  //     name: '$(answer.',
+  //   },
+  //   (err, res) => {
+  //     if (err) throw err;
+  //     console.log(`${res.affectedRows} product inserted!\n`);
+  //     // Call updateProduct AFTER the INSERT completes
+  //     updateProduct();
+  //   }
+  // );
 
   //do database call - this will return what needs to be passed into console.table ... look at npm examples
 
