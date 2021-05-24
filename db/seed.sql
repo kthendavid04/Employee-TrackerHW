@@ -1,16 +1,16 @@
 USE empTrackerDB;
 -- Department / Houses
-INSERT department ('name') VALUES ('Gryffindor'), ("Hufflepuff"), ('Ravenclaw'),  ('Slytherin');
+INSERT INTO department (name) VALUES ('Gryffindor'), ("Hufflepuff"), ('Ravenclaw'),  ('Slytherin');
 
 
-INSERT roles ('title', 'salary', 'department_id') VALUES ('Professor', 108000, NULL), ('Student', 10000, NULL), ('Staff', 35000, NULL) ('Other', 350000, NULL);
+INSERT INTO roles (title, salary, department_id) VALUES ('Professor', 108000, NULL), ('Student', 10000, NULL), ('Staff', 35000, NULL) ('Other', 350000, NULL);
 
 -- Managers/Professors
-INSERT employee('first_name', 'last_name', "role_id", 'manager_id','department_id' ) VALUES ('Minerva', 'McGonagall', 1, NULL, 1), ('Pomona', 'Sprout', 1, NULL, 2)('Filius', 'Flitwick', 1, NULL, 3),('Serverus', 'Snape', 1, NULL, 4),;
+INSERT INTO employee(first_name, last_name, role_id, 'manager_id','department_id' ) VALUES ('Minerva', 'McGonagall', 1, NULL, 1), ('Pomona', 'Sprout', 1, NULL, 2)('Filius', 'Flitwick', 1, NULL, 3),('Serverus', 'Snape', 1, NULL, 4),;
 
 
 -- Employees/ Students
-INSERT employee('first_name', 'last_name', "role_id", 'manager_id') VALUES 
+INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES 
 -- Gryffindor
 
 ('Harry', 'Potter', "2", '1') ,

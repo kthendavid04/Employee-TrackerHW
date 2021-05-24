@@ -66,17 +66,17 @@ const addTracker= () => {
   console.log('')
     inquirer
       .prompt({
-        name: 'deptName',
+        name: 'addSomething',
         type: 'list',
         message: 'What would you like to add?',
         choices:["Department", "Role", "Employee", "Exit"]
       })
       .then((answer) => {
-        switch (answer.addQuest) {
+        switch (answer.addSomething) {
           case 'Department':
             addDepartment();
             break;
-            
+
           case 'Role"':
             addRole();
             break;
@@ -96,34 +96,107 @@ const addTracker= () => {
 
 
 
-        const query = 'SELECT name FROM department WHERE ?';
-        connection.query(query, { name: answer.deptName }, (err, res) => {
-          if (err) throw err;
-          res.forEach(({ deptName }) => {
-            console.log(
-              `name ${deptName}`
-            );
-          });
-          runTracker();
-        });
+        // const query = 'SELECT name FROM department WHERE ?';
+        // connection.query(query, { name: answer.deptName }, (err, res) => {
+        //   if (err) throw err;
+        //   res.forEach(({ deptName }) => {
+        //     console.log(
+        //       `name ${deptName}`
+        //     );
+        //   });
+        //   runTracker();
+        // });
       });
   };
 
+// ********** CREATE ***********
 
-  // const addDepartment = () => {
-  // console.log('Adding new Department...\n');
-  // const query = connection.query(
-  //   'INSERT INTO department SET ?',
-  //   {
-  //     name: '$(answer.',
-  //   },
-  //   (err, res) => {
-  //     if (err) throw err;
-  //     console.log(`${res.affectedRows} product inserted!\n`);
-  //     // Call updateProduct AFTER the INSERT completes
-  //     updateProduct();
-  //   }
-  // );
+// add new Department
+ const addDepartment = () => {
+    inquirer
+      .prompt({
+        name: 'newDept',
+        type: 'input',
+        message: 'What department do you want to add?',
+      })
+      .then((answer) => {
+  console.log('Adding new Department...\n');
+  const query = connection.query(
+    'INSERT INTO department SET ?',
+    {
+      name: $(answer.newDpet),
+    },
+    (err, res) => {
+      if (err) throw err;
+      console.log(`${res.affectedRows} Department added!\n`);
+    }
+  )})};
+
+// Add new Role
+  const addRole = () => {
+    inquirer
+      .prompt({
+        name: 'newRole',
+        type: 'input',
+        message: 'What is the title of the new Role would you like to add?',
+
+        name: 'nRoleSalary',
+        type: 'input',
+        message: 'What is the annual salary of the New Role?',
+
+        name: 'nRoleDeptID',
+        type: 'input',
+        message: 'What is the ID of the Deparment for the New Role?',
+      })
+      .then((answer) => {
+  console.log('Adding new Role...\n');
+  const query = connection.query(
+    'INSERT INTO role SET ?',
+    {
+      title: $(answer.neRole),
+      salary: $(answer.nRoleSalary),
+      department_id: $(answer.nRoleDeptID),
+    },
+    (err, res) => {
+      if (err) throw err;
+      console.log(`${res.affectedRows} New Role added!\n`);
+    }
+  )})};
+// Add new Employee
+  const addEmployee = () => {
+    inquirer
+      .prompt({
+        name: 'nEmpFirstName',
+        type: 'input',
+        message: 'What is the new employees first name',
+
+        name: 'nEmpLastName',
+        type: 'input',
+        message: 'What is the new employees last name?',
+
+        name: 'nEmpRoleID',
+        type: 'input',
+        message: 'What is the ID of the Role/Title for the New Employee?',
+
+        name: 'nEmpManID',
+        type: 'input',
+        message: 'What is the ID of the new Employees Manager?',
+      })
+      .then((answer) => {
+  console.log('Adding new Employee...\n');
+  const query = connection.query(
+    'INSERT INTO employee SET ?',
+    {
+      first_name: $(answer.nEmpFirstName),
+      last_name: $(answer.nEmpLastName),
+      role_id: $(answer.nEmpRoleID),
+      manager_id: $(answer.nEmpManID),
+    },
+    (err, res) => {
+      if (err) throw err;
+      console.log(`${res.affectedRows} New Employee added!\n`);
+    }
+  )})};
 
   //do database call - this will return what needs to be passed into console.table ... look at npm examples
 
