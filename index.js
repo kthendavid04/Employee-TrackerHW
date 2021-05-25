@@ -77,11 +77,11 @@ const addTracker= () => {
             addDepartment();
             break;
 
-          case 'Role"':
+          case 'Role':
             addRole();
             break;
     
-          case 'Employee"':
+          case 'Employee':
             addEmployee();
             break;
     
@@ -90,7 +90,7 @@ const addTracker= () => {
             break;
     
           default:
-            console.log(`Invalid action: ${answer.addQuest}`);
+            console.log(`Invalid action: ${answer.addSomething}`);
             break;
         }
 
@@ -109,7 +109,7 @@ const addTracker= () => {
       });
   };
 
-// ********** CREATE ***********
+// ********** CREATE *********** / NEED TO ADD CATCHES... 
 
 // add new Department
  const addDepartment = () => {
@@ -130,7 +130,9 @@ const addTracker= () => {
       if (err) throw err;
       console.log(`${res.affectedRows} Department added!\n`);
     }
-  )})};
+  )})
+  //console.log(query.sql);
+};
 
 // Add new Role
   const addRole = () => {
@@ -162,6 +164,7 @@ const addTracker= () => {
       console.log(`${res.affectedRows} New Role added!\n`);
     }
   )})};
+
 // Add new Employee
   const addEmployee = () => {
     inquirer
@@ -204,3 +207,71 @@ const addTracker= () => {
   // in the schema.sql... ned to make sure that all the foreign keys reference the tables they need to be referencing...
   //foreign key restraints... 
   // Join manager id with employee table..
+
+
+  // **********READ********************
+const viewTracker= () => {
+  console.log('')
+    inquirer
+      .prompt({
+        name: 'viewSomething',
+        type: 'list',
+        message: 'What would you like to view?',
+        choices:["Department", "Role", "Employee", "Exit"]
+        })
+        .then((answer) => {
+          switch (answer.viewSomething) {
+            case 'Department':
+              viewDepartment();
+              break;
+  
+            case 'Role':
+              viewRole();
+              break;
+      
+            case 'Employee':
+              viewEmployee();
+              break;
+      
+            case 'Exit':
+              connection.end();
+              break;
+      
+            default:
+              console.log(`Invalid action: ${answer.viewSomething}`);
+              break;
+          }
+        });
+      };
+
+      const viewDepartment = () => {
+        console.log('Selecting all department...\n');
+        connection.query('SELECT * FROM department', (err, res) => {
+          if (err) throw err;
+          // Log all results of the SELECT statement
+          console.log(res);
+          runTracker();
+        });
+      };
+
+      const viewRole = () => {
+        console.log('Selecting all role...\n');
+        connection.query('SELECT * FROM role', (err, res) => {
+          if (err) throw err;
+          // Log all results of the SELECT statement
+          console.log(res);
+          runTracker();
+        });
+      };
+
+      const viewEmployee = () => {
+        console.log('Selecting all employee ..\n');
+        connection.query('SELECT * FROM employee ', (err, res) => {
+          if (err) throw err;
+          // Log all results of the SELECT statement
+          console.log(res);
+          runTracker();
+        });
+      };
+// *******DELETE*******************
+
